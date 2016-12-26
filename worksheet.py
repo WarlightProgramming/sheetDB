@@ -11,10 +11,9 @@ import gspread
 # main class
 class Worksheet(object):
 
-    def __init__(self, worksheet, headRow=1):
+    def __init__(self, worksheet):
         self.sheet = worksheet
         self.client = worksheet.client
-        self.header = headRow
 
     ## built-in methods
 
