@@ -59,7 +59,7 @@ class Worksheet(object):
             raise SheetError("Nonexistent column!")
 
     @updateClient
-    def getRow(self, col):
+    def getRow(self, row):
         if (row <= self.getRowCount()):
             return self.sheet.row_values(row)
         else:
