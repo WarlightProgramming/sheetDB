@@ -126,6 +126,23 @@ class Worksheet(object):
                 col2 = rangeLabel[3]
             return self.getNumberedRange(row1, col1, row2, col2)
 
+    @updateClient
+    def fetchCell(self, loc):
+        if (type(loc) == tuple):
+            return self.sheet.cell(loc[0], loc[1])
+        elif (type(loc) == str):
+            return self.sheet.acell(loc)
+
+    @updateClient
+    def fetchCellValue(self, loc):
+        cell = self.fetchCell(loc)
+        return cell.value
+
+    @updateClient
+    def fetchCellInputValue(self, loc):
+        cell = self.fetchCell(loc)
+        return cell.input_value
+
     ## write operations
 
     @updateClient
@@ -140,6 +157,10 @@ class Worksheet(object):
     def appendRows(self, *rows):
         for row in rows:
             self.sheet.append_row(row)
+
+    @updateClient
+    def insertRow(self, values, index=1):
+        self.sheet.insert_row(values, index)
 
     @updateClient
     def fillRow(self, rowNum, newValues):
@@ -163,13 +184,6 @@ class Worksheet(object):
         for col in cols:
             colNum += 1
             self.fillCol(colNum, col)
-
-    @updateClient
-    def fetchCell(self, loc):
-        if (type(loc) == tuple):
-            return self.sheet.cell(loc[0], loc[1])
-        elif (type(loc) == str):
-            return self.sheet.acell(loc)
 
     @updateClient
     def updateCell(self, loc, value):
